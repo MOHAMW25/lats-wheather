@@ -33,7 +33,7 @@ function getCurrentDay() {
 async function weather() {
     const location = input.value;
 
-    // تحقق من إدخال الموقع
+    
     if (!location) {
         alert("Please enter a location.");
         return;
@@ -56,14 +56,14 @@ async function weather() {
         Day.innerHTML = getCurrentDay();
         icon.src = `https:${weatherData.current.condition.icon}`;
 
-        // بيانات اليوم الثاني
+    
         const day2 = weatherData.forecast.forecastday[1];
         carday2.innerHTML = new Date(day2.date).toLocaleDateString('en-US', { weekday: 'long' });
         tempcard2.innerHTML = `${day2.day.avgtemp_c} °C`;
         clearcard2.innerHTML = day2.day.condition.text;
         iconcard2.src = `https:${day2.day.condition.icon}`;
 
-        // بيانات اليوم الثالث
+         
         const day3 = weatherData.forecast.forecastday[2];
         Day3.innerHTML = new Date(day3.date).toLocaleDateString('en-US', { weekday: 'long' });
         tempcard3.innerHTML = `${day3.day.avgtemp_c} °C`;
