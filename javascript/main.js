@@ -33,40 +33,46 @@ function getCurrentDay() {
 async function weather() {
     const location = input.value;
 
+    // تحقق من إدخال الموقع
+    if (!location) {
+        alert("Please enter a location.");
+        return;
+    }
+
     try {
         const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${IPkKey}&q=${location}&days=3`);
         const weatherData = await response.json();
-        
-        // Date of day
+
+        // عرض بيانات اليوم الحالي
         temp.innerHTML = `${weatherData.current.temp_c} °C`;  
         Location.innerHTML = `${weatherData.location.name}`; 
-          
         clear.innerHTML = weatherData.current.condition.text;
         const lastUpdated = new Date(weatherData.current.last_updated);
         const options = {
-             day: 'numeric',
-              month: 'long' };
+            day: 'numeric',
+            month: 'long' 
+        };
         History.innerHTML = lastUpdated.toLocaleDateString('en-US', options);
         Day.innerHTML = getCurrentDay();
         icon.src = `https:${weatherData.current.condition.icon}`;
 
-        // the day 2
+        // بيانات اليوم الثاني
         const day2 = weatherData.forecast.forecastday[1];
         carday2.innerHTML = new Date(day2.date).toLocaleDateString('en-US', { weekday: 'long' });
         tempcard2.innerHTML = `${day2.day.avgtemp_c} °C`;
         clearcard2.innerHTML = day2.day.condition.text;
         iconcard2.src = `https:${day2.day.condition.icon}`;
 
-        // the day 3
+        // بيانات اليوم الثالث
         const day3 = weatherData.forecast.forecastday[2];
         Day3.innerHTML = new Date(day3.date).toLocaleDateString('en-US', { weekday: 'long' });
         tempcard3.innerHTML = `${day3.day.avgtemp_c} °C`;
         clearcard3.innerHTML = day3.day.condition.text;
         iconcard3.src = `https:${day3.day.condition.icon}`;
-       
+
     } catch (error) {
         console.error("Error fetching weather data:", error);
-        alert("Failed to fetch weather data. Please try again.");
+        alert("Failed to fetch weather data. Please check the location and try again.");
     }
 }
 
