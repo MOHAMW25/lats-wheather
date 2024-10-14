@@ -1,4 +1,4 @@
-let IPkKey = `347c5c94292943eabf1164044241110`; 
+ let IPkKey = `347c5c94292943eabf1164044241110`; 
 
 // input   
 let input = document.getElementById("input");
@@ -34,10 +34,9 @@ async function weather() {
     const location = input.value;
 
     try {
-        const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${IPkKey}&q=${location}&days=3`);
+        const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${IPkKey}&q=${location}&days=3`);
         const weatherData = await response.json();
         
-       
         // Date of day
         temp.innerHTML = `${weatherData.current.temp_c} °C`;  
         Location.innerHTML = `${weatherData.location.name}`; 
@@ -51,28 +50,23 @@ async function weather() {
         Day.innerHTML = getCurrentDay();
         icon.src = `https:${weatherData.current.condition.icon}`;
 
-        
-        // the  day  2
+        // the day 2
         const day2 = weatherData.forecast.forecastday[1];
         carday2.innerHTML = new Date(day2.date).toLocaleDateString('en-US', { weekday: 'long' });
         tempcard2.innerHTML = `${day2.day.avgtemp_c} °C`;
-        icon.src = `https:${weatherData.current.condition.icon}`;
         clearcard2.innerHTML = day2.day.condition.text;
         iconcard2.src = `https:${day2.day.condition.icon}`;
-    
-      
 
-        //the day 3
+        // the day 3
         const day3 = weatherData.forecast.forecastday[2];
         Day3.innerHTML = new Date(day3.date).toLocaleDateString('en-US', { weekday: 'long' });
         tempcard3.innerHTML = `${day3.day.avgtemp_c} °C`;
         clearcard3.innerHTML = day3.day.condition.text;
-        iconcard3.src = `https:${day3.day.condition.icon}`
+        iconcard3.src = `https:${day3.day.condition.icon}`;
        
-
     } catch (error) {
         console.error("Error fetching weather data:", error);
-        // alert("Failed to fetch weather data. Please try again.");
+        alert("Failed to fetch weather data. Please try again.");
     }
 }
 
