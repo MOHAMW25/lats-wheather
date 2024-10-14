@@ -72,7 +72,7 @@ async function weather() {
 
     } catch (error) {
         console.error("Error fetching weather data:", error);
-        alert("Failed to fetch weather data. Please try again.");
+        // alert("Failed to fetch weather data. Please try again.");
     }
 }
 
